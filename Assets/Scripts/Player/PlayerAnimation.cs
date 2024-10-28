@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    private Animator animator;
-    private PhysicsCheck PhysicsCheck;
-    private Rigidbody2D rigidbody2D;
+    private Animator _animator;
+    private PhysicsCheck _physicsCheck;
+    private PlayerController _playerController;
+    private Rigidbody2D _rigidbody2D;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        PhysicsCheck = GetComponent<PhysicsCheck>();
+        _animator = GetComponent<Animator>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _physicsCheck = GetComponent<PhysicsCheck>();
+        _playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -22,8 +24,14 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetAnimation()
     {
-        animator.SetFloat("velocityX", Mathf.Abs(rigidbody2D.velocity.x));
-        animator.SetFloat("velocityY", rigidbody2D.velocity.y);
-        animator.SetBool("isGround", PhysicsCheck.isGrounded);
+        _animator.SetFloat("velocityX", Mathf.Abs(_rigidbody2D.velocity.x));
+        _animator.SetFloat("velocityY", _rigidbody2D.velocity.y);
+        _animator.SetBool("isGround", _physicsCheck.isGrounded);
+        _animator.SetBool("isDead", _playerController.isDead);
+    }
+
+    public void PlayHurtAnimation()
+    {
+        _animator.SetTrigger("hurt");
     }
 }
