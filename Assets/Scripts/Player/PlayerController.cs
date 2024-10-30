@@ -15,9 +15,11 @@ public class PlayerController : MonoBehaviour
     public bool isAttacking;
     public float hurtForce = 1;
 
-
+    [SerializeField] private PhysicsMaterial2D wall;
+    [SerializeField] private PhysicsMaterial2D normal;
     private PhysicsCheck _physicsCheck;
     private Rigidbody2D _rigidbody2D;
+    private CapsuleCollider2D _capsuleCollider;
     private PlayerAnimation _playerAnimation;
 
     public PlayerInputControl InputControl;
@@ -35,11 +37,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         inputDirection = InputControl.Gameplay.Move.ReadValue<Vector2>();
+        CheckState();
     }
 
     private void FixedUpdate()
     {
-        if (!isHurt)
+        if (!isHurt && !isAttacking)
             Move();
     }
 
@@ -89,5 +92,10 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         InputControl.Gameplay.Disable();
+    }
+
+    public void CheckState()
+    {
+        _rigidbody2D.sharedMaterial = _physicsCheck.isGrounded ? normal : wall;
     }
 }

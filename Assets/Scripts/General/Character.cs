@@ -44,7 +44,7 @@ public class Character : MonoBehaviour
             return;
         }
 
-        Debug.Log($"{attacker.name} attack {this.name} {Time.time}");
+        Debug.Log($"{attacker.name} attack {this.name} Time:{Time.time} {invulnerable}");
         invulnerable = true;
         health -= attacker.damage;
         OnTakeDamage?.Invoke(attacker.transform);
