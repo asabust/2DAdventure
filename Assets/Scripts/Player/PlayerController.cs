@@ -12,12 +12,13 @@ public class PlayerController : MonoBehaviour
 
     public bool isHurt;
     public bool isDead;
+    public bool isAttacking;
     public float hurtForce = 1;
 
 
     private PhysicsCheck _physicsCheck;
-
     private Rigidbody2D _rigidbody2D;
+    private PlayerAnimation _playerAnimation;
 
     public PlayerInputControl InputControl;
 
@@ -25,8 +26,10 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _physicsCheck = GetComponent<PhysicsCheck>();
+        _playerAnimation = GetComponent<PlayerAnimation>();
         InputControl = new PlayerInputControl();
         InputControl.Gameplay.Jump.started += Jump;
+        InputControl.Gameplay.Attack.started += Attack;
     }
 
     private void Update()
@@ -50,6 +53,8 @@ public class PlayerController : MonoBehaviour
         InputControl.Disable();
     }
 
+    #region UnityEvent
+
     private void Move()
     {
         _rigidbody2D.velocity = new Vector2(inputDirection.x * speed * Time.deltaTime,
@@ -63,6 +68,14 @@ public class PlayerController : MonoBehaviour
         if (_physicsCheck.isGrounded)
             _rigidbody2D.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
     }
+
+    private void Attack(InputAction.CallbackContext obj)
+    {
+        _playerAnimation.PlayAttack();
+        isAttacking = true;
+    }
+
+    #endregion
 
     public void GetHurt(Transform attacker)
     {

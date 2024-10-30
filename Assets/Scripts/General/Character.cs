@@ -18,6 +18,7 @@ public class Character : MonoBehaviour
     {
         health = maxHealth;
         invulnerable = false;
+        invulnerableTimer = invulnerableTime;
     }
 
     private void Update()
@@ -43,17 +44,10 @@ public class Character : MonoBehaviour
             return;
         }
 
-        Debug.Log($"{attacker.name}:{attacker.damage}");
+        Debug.Log($"{attacker.name} attack {this.name} {Time.time}");
+        invulnerable = true;
         health -= attacker.damage;
-        invulnerable = true;
         OnTakeDamage?.Invoke(attacker.transform);
-    }
-
-
-    private void TriggerInvulnerability()
-    {
-        if (invulnerable) return;
-        invulnerable = true;
     }
 
     private void Death()
