@@ -639,11 +639,13 @@ GameObject:
   m_Component:
   - component: {fileID: 321854690}
   - component: {fileID: 321854689}
+  - component: {fileID: 321854695}
   - component: {fileID: 321854688}
   - component: {fileID: 321854687}
   - component: {fileID: 321854691}
   - component: {fileID: 321854693}
   - component: {fileID: 321854692}
+  - component: {fileID: 321854694}
   m_Layer: 8
   m_Name: Boar
   m_TagString: Untagged
@@ -784,7 +786,7 @@ Transform:
   m_GameObject: {fileID: 321854686}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.53, y: -2.0900002, z: 0}
+  m_LocalPosition: {x: 6.75, y: -2.0900002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -856,13 +858,50 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   invulnerable: 0
-  invulnerableTime: 2
+  invulnerableTime: 1
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls: []
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &321854694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321854686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa4a0a10792a49fb8fa662566b3c816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalSpeed: 100
+  dashSpeed: 260
+  currentSpeed: 0
+  direction: {x: 0, y: 0, z: 0}
+--- !u!95 &321854695
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321854686}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8e9f3b337d5654d598f0004e0a444bb8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &500521380
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,7 +987,7 @@ Transform:
   m_GameObject: {fileID: 500521380}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.24, y: -2, z: 0}
+  m_LocalPosition: {x: 0.68, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1006,7 +1045,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 6200000, guid: 7a4227f5448bd4bc88a13d7026343a55, type: 2}
+  m_Material: {fileID: 6200000, guid: 9113194160b214da68eb59e4cb19806e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1030,12 +1069,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputDirection: {x: 0, y: 0}
-  speed: 250
+  speed: 290
   jumpForce: 16
   isHurt: 0
   isDead: 0
   isAttacking: 0
   hurtForce: 5
+  wall: {fileID: 6200000, guid: 9113194160b214da68eb59e4cb19806e, type: 2}
+  normal: {fileID: 6200000, guid: 7a4227f5448bd4bc88a13d7026343a55, type: 2}
 --- !u!114 &500521386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3473,7 +3514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 236971b758ebd4101aa2cd6a358e9e69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 10
   range: 0
   attackRadius: 0
   attackRate: 0
@@ -4061,7 +4102,7 @@ Tilemap:
       - {fileID: -1679232863, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: 509593701, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: 697909381, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 5, y: -5, z: 0}
@@ -4160,7 +4201,7 @@ Tilemap:
       - {fileID: -1679232863, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: 509593701, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: 697909381, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 0, y: -2, z: 0}
@@ -4281,7 +4322,7 @@ Tilemap:
       - {fileID: -182433686, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: -1374928360, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: -1399099024, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
-      m_AnimationSpeed: 7.0000005
+      m_AnimationSpeed: 7
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -1, y: 2, z: 0}
@@ -4556,7 +4597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 236971b758ebd4101aa2cd6a358e9e69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 15
   range: 0
   attackRadius: 0
   attackRate: 0
@@ -4655,7 +4696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 236971b758ebd4101aa2cd6a358e9e69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 20
   range: 0
   attackRadius: 0
   attackRate: 0
