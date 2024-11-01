@@ -11,12 +11,19 @@ public class Enemy : MonoBehaviour
     public float chaseSpeed;
     public float currentSpeed;
     public Vector3 faceDirection;
+    public float hurtFource = 4;
+
+    private Transform target;
 
     [Header("计时器")]
     public float waitTime;
 
-    public float waitTimer;
+    private float waitTimer;
     public bool waiting;
+
+    [Header("状态")]
+    public bool isHurt;
+
 
     private Rigidbody2D rb;
     protected Animator anim;
@@ -46,7 +53,7 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!waiting)
+        if (!waiting && !isHurt)
         {
             Move();
         }
@@ -60,6 +67,36 @@ public class Enemy : MonoBehaviour
     public void TurnAround()
     {
         transform.localScale = new Vector3(faceDirection.x, 1, 1);
+    }
+
+    public void OnTakeDamage(Transform attacker)
+    {
+        target = attacker;
+        transform.localScale = attacker.position.x - transform.position.x > 0
+            ? new Vector3(-1, 1, 1)
+            : new Vector3(1, 1, 1);
+        isHurt = true;
+        anim.SetTrigger("hurt");
+        Vector2 dir = new Vector2(transform.position.x - attacker.position.x, 0).normalized;
+        rb.AddForce(dir * hurtFource, ForceMode2D.Impulse);
+        StartCoroutine(OnHurt());
+    }
+
+    IEnumerator OnHurt()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isHurt = false;
+    }
+
+    public void OnDie()
+    {
+        gameObject.layer = 2;
+        anim.SetTrigger("die");
+    }
+
+    public void DestryOnDeath()
+    {
+        Destroy(this.gameObject);
     }
 
     public void Timer()

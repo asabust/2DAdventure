@@ -859,13 +859,37 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   invulnerable: 0
-  invulnerableTime: 1
+  invulnerableTime: 0.2
   OnTakeDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 321854694}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnTakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 321854694}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnDie
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &321854694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,9 +906,10 @@ MonoBehaviour:
   chaseSpeed: 0
   currentSpeed: 0
   faceDirection: {x: 0, y: 0, z: 0}
+  hurtFource: 4
   waitTime: 2
-  waitTimer: 1
   waiting: 0
+  isHurt: 0
 --- !u!95 &321854695
 Animator:
   serializedVersion: 5
@@ -4198,7 +4223,7 @@ Tilemap:
       - {fileID: 311507051, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: -59770204, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: 978833279, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
-      m_AnimationSpeed: 7.0000005
+      m_AnimationSpeed: 7
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 3, y: -3, z: 0}
@@ -4352,7 +4377,7 @@ Tilemap:
       - {fileID: -1679232863, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: 509593701, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: 697909381, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 0, y: 1, z: 0}
@@ -4407,7 +4432,7 @@ Tilemap:
       - {fileID: -182433686, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: -1374928360, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: -1399099024, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
-      m_AnimationSpeed: 7.0000005
+      m_AnimationSpeed: 7
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -1, y: 3, z: 0}
@@ -4484,7 +4509,7 @@ Tilemap:
       - {fileID: -1679232863, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: 509593701, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
       - {fileID: 697909381, guid: 94428e6b7b18c4c3f9de5becc9f65966, type: 3}
-      m_AnimationSpeed: 7.0000005
+      m_AnimationSpeed: 7
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 0, y: 5, z: 0}
