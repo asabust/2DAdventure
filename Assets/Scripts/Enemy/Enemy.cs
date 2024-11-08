@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class Enemy : MonoBehaviour
 
     private Transform target;
 
-    [Header("计时器")]
+    [Header("等待与计时")]
     public float waitTime;
 
     private float waitTimer;
@@ -24,12 +25,15 @@ public class Enemy : MonoBehaviour
     [Header("状态")]
     public bool isHurt;
 
+    private BaseState currentState;
+    protected BaseState patrolState;
+    protected BaseState chaseState;
 
     private Rigidbody2D rb;
-    protected Animator anim;
-    private PhysicsCheck physicsCheck;
+    [HideInInspector] public Animator anim;
+    [HideInInspector] public PhysicsCheck physicsCheck;
 
-    void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -38,16 +42,17 @@ public class Enemy : MonoBehaviour
         waitTimer = waitTime;
     }
 
+    private void OnEnable()
+    {
+        currentState = patrolState;
+        currentState.OnEnter(this);
+    }
+
     // Update is called once per frame
     void Update()
     {
         faceDirection = new Vector3(-transform.localScale.x, 0, 0);
-        if ((physicsCheck.touchLeftWall && faceDirection.x < 0) || (physicsCheck.touchRigntWall && faceDirection.x > 0))
-        {
-            waiting = true;
-            anim.SetBool("isWalk", false);
-        }
-
+        currentState.LogicUpdate();
         Timer();
     }
 
@@ -57,6 +62,13 @@ public class Enemy : MonoBehaviour
         {
             Move();
         }
+
+        currentState.PhysicsUpdate();
+    }
+
+    private void OnDisable()
+    {
+        currentState.OnExit();
     }
 
     public virtual void Move()
